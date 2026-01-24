@@ -1,0 +1,159 @@
+callback functions in js
+passing functions as arguements
+We can always call one function inside another function 
+The primary function ie the present function will call back the previous function
+
+function square(no){
+    return n*n;
+};
+function cube(no){
+    return n*n*n;
+};
+function sumofsquares(a,b){
+    const val1=square(a);
+    const val2=square(b);
+    const ans=val1+val2;
+    return ans;
+
+};
+function sumofcube(a,b){
+    const val1=cube(a);
+    const val2=cube(b);
+    const ans=val1+val2;
+    return ans;
+};
+const ans=sumofcube(2,3);
+console.log(ans);
+
+instead use 
+function sumofany(a,b,fn){
+    const val1=fn(a);
+    const val2=fn(b);
+    return val1+val2;
+}
+
+
+class in js 
+In js classes are a way to define a blueprint for an object 
+In JavaScript, classes are a way to define blueprints for creating objects (these objects are 
+different from the objects defined in the last section).
+
+
+Key Concepts
+
+Class Declaration:
+You declare a class using the class keyword.
+Inside a class, you define properties (variables) and methods (functions) that will belong to the objects created from this class.
+
+Constructor:
+A special method inside the class that is called when you create an instance (an object) of the class.
+It’s used to initialize the properties of the object.
+
+Methods:
+Functions that are defined inside the class and can be used by all instances of the class.
+
+Inheritance:
+Classes can inherit properties and methods from other classes, allowing you to create a new class based on an existing one.
+
+Static Methods:
+Methods that belong to the class itself, not to instances of the class. You call them directly on the class.
+
+Getters and Setters:
+Special methods that allow you to define how properties are accessed and modified.
+
+
+The normal object cannot have functions inside it and also cant have Inheritance but the class is meant to have these things.This keyword
+helps in accessing the current object
+new keyword creates a new instance of the rectangle class/ creating a new object of the rectangle class.
+
+Functions inside the classes are called methods and we use "." to access and use the method.
+
+class rectangle{
+    constructor(width,height,color){
+        this.width=width;
+        this.height=height;
+        this.color=color;
+    }
+    area(){
+        const area=this.width*this.height;
+        return area;
+    }
+    print(){
+        console.log(`The rectangle is ${this.color}`);
+    }
+}
+
+const newrect=new rectangle(10,20,"red");
+console.log(newrect.area());
+newrect.print();
+
+const newrect2=new rectangle(5,10,"Blue");
+console.log(newrect2.print());
+
+
+const mp=new Map();
+mp.set("name","Yash");
+console.log(mp.get("name"));
+
+
+promise class is also the same it promises that it will return you something in the future just like the call back used in settimeout 
+the settimeout function will promise it will call afunction x after some time 
+A promise in js is an object that represents the eventual completion (or failure) of an asyncronous operationa and its value
+promises are used to handle asyncronous operations more effectively than traditional callback functions providing a cleaner and more manageable 
+way to deal with code that executes asyncronously such ad API calls , file i/o and timers 
+
+
+function callbackfunction(){
+    console.log("Call back function is called 1");
+}
+
+
+function settimeoutpromisified(ms){
+    let p=new Promise((resolve)=>{
+        setTimeout(callbackfunction,ms)
+    });
+    return p;
+}
+setTimeout(callbackfunction,3000);
+settimeoutpromisified(3000).then(callbackfunction);
+
+function stp(ms){
+    return new Promise((resolve)=>{
+        setTimeout(cbf,ms);
+    })
+}
+
+function cbf(){
+    console.log("function is called 2");
+}
+stp(4000).then(cbf);
+
+
+Promises are syntactically superior way to write a call back.
+
+
+
+function promisifiedReadFile(path) {
+        return new Promise((resolve) => {
+            fs.readFile(path, 'utf8', (error, data) => {
+                if (!error) {
+                    resolve(data);
+                }
+            });
+        }
+    );
+}
+promisifiedReadFile('a.txt')
+    .then((data) => console.log(data))
+
+function prf(path){
+    return new Promise((resolve)=>{
+        fs.readFile(path,'utf-8',function(err,data){
+            resolve(data);
+        });
+    })
+}
+prf("a.txt").then((data)=>{
+    console.log(data);
+})
+
